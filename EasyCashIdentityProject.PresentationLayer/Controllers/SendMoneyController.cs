@@ -36,9 +36,17 @@ namespace EasyCashIdentityProject.PresentationLayer.Controllers
             sendMoneyForCustomerAccountProcessDto.SenderID = user.Id;
             sendMoneyForCustomerAccountProcessDto.ProcessDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             sendMoneyForCustomerAccountProcessDto.ProcessType = "Havale";
-            sendMoneyForCustomerAccountProcessDto.ReceiverID= receiverAccountNumberID;
+            sendMoneyForCustomerAccountProcessDto.ReceiverID = receiverAccountNumberID;
 
-            _customerAccountProcessService.TInsert();
+            var values = new CustomerAccountProcess();
+            values.ProcessDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            values.SenderID = 3 ;
+            values.ProcessType = "Havale";
+            values.ReceiverID = receiverAccountNumberID;
+            values.Amount = sendMoneyForCustomerAccountProcessDto.Amount;
+
+
+            _customerAccountProcessService.TInsert(values);
 
             return RedirectToAction("Index", "Deneme");
         }
