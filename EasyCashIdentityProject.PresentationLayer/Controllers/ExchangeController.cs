@@ -65,6 +65,26 @@ namespace EasyCashIdentityProject.PresentationLayer.Controllers
                 ViewBag.GbpToTry = body3;
             }
             #endregion
+
+            #region
+            var client4 = new HttpClient();
+            var request4 = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://currency-exchange.p.rapidapi.com/exchange?from=USD&to=EUR&q=1.0"),
+                Headers =
+    {
+        { "X-RapidAPI-Key", "c292493ef9msh5751a120cb56a48p1d63b2jsn117f8c1dd541" },
+        { "X-RapidAPI-Host", "currency-exchange.p.rapidapi.com" },
+    },
+            };
+            using (var response4 = await client4.SendAsync(request4))
+            {
+                response4.EnsureSuccessStatusCode();
+                var body4 = await response4.Content.ReadAsStringAsync();
+                ViewBag.UsdToEur = body4;
+            }
+            #endregion
             return View();
         }
     }
